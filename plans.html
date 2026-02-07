@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Our Plans 🌍</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #ff758c);
+      font-family: "Segoe UI", sans-serif;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 25px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .emoji {
+      font-size: 40px;
+    }
+
+    button {
+      margin-top: 40px;
+      padding: 12px 30px;
+      border-radius: 30px;
+      border: none;
+      background: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Things I Want To Do With You 💕</h1>
+
+<div class="cards">
+  <div class="card">
+    <div class="emoji">🏍️</div>
+    <h3>Bike Ride</h3>
+    <p>Long rides, random stops, music, and conversations that never feel long.</p>
+  </div>
+
+  <div class="card">
+    <div class="emoji">🌊</div>
+    <h3>Beach Vacation</h3>
+    <p>Sunsets, salty air, quiet walks, and holding hands by the waves.</p>
+  </div>
+
+  <div class="card">
+    <div class="emoji">🌴</div>
+    <h3>Resort Getaway</h3>
+    <p>Slow mornings, lazy evenings, and time that feels just ours.</p>
+  </div>
+</div>
+
+<button onclick="goLetter()">One Last Thing 💌</button>
+
+<script>
+  const name = new URLSearchParams(window.location.search).get("name") || "";
+  function goLetter() {
+    window.location.href = "letter.html?name=" + name;
+  }
+</script>
+
+</body>
+</html>

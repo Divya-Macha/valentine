@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For You 💖</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #fad0c4, #ffd1dc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Segoe UI", sans-serif;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 30px;
+      max-width: 600px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      text-align: center;
+      animation: fade 1s ease;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    p {
+      line-height: 1.7;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1 id="title"></h1>
+
+  <p>
+    I don’t know what the future looks like,  
+    but I do know that I want to explore it with you.
+  </p>
+
+  <p>
+    This isn’t a promise of perfection —  
+    it’s a promise of honesty, effort, and care.
+  </p>
+
+  <p>
+    Thank you for being you.  
+    And thank you for saying yes 💖
+  </p>
+</div>
+
+<script>
+  const name = new URLSearchParams(window.location.search).get("name") || "You";
+  document.getElementById("title").innerText = `For You, ${name} 💕`;
+</script>
+
+</body>
+</html>
