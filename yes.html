@@ -65,6 +65,8 @@
 <script>
   const name = new URLSearchParams(window.location.search).get("name") || "You";
   document.getElementById("msg").innerText = `YAYYYY ${name} 😍💖`;
+  startMusic();
+
 
   function goStory() {
     window.location.href = "story.html?name=" + name;
