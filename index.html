@@ -1,91 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Valentine 💖</title>
-  <style>
-    body {
-      background: linear-gradient(to right, #ff9a9e, #fad0c4);
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-      padding-top: 80px;
-    }
-
-    .card {
-      background: white;
-      width: 350px;
-      margin: auto;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
-
-    input {
-      padding: 10px;
-      width: 80%;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      margin-bottom: 15px;
-    }
-
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 16px;
-      margin: 10px;
-    }
-
-    .yes {
-      background-color: #ff4d6d;
-      color: white;
-    }
-
-    .no {
-      background-color: #ccc;
-    }
-
-    #question {
-      font-size: 22px;
-      margin-top: 20px;
-    }
-  </style>
-</head>
 <body>
-
   <div class="card">
-    <h2>💖 Valentine Time 💖</h2>
+    <h2 id="question"></h2>
 
-    <input type="text" id="nameInput" placeholder="Enter their name">
-
-    <br>
-    <button onclick="askValentine()">Ask 💌</button>
-
-    <div id="question"></div>
-    <div id="buttons" style="display:none;">
-      <button class="yes" onclick="yesClicked()">Yes 💕</button>
+    <div class="buttons">
+      <button class="yes" onclick="goYes()">Yes 💖</button>
       <button class="no" onmouseover="moveNo()">No 🙈</button>
     </div>
   </div>
 
   <script>
-    function askValentine() {
-      const name = document.getElementById("nameInput").value;
-      if (!name) {
-        alert("Please enter a name 💕");
-        return;
-      }
-      document.getElementById("question").innerHTML =
-        `${name}, will you be my Valentine? 💘`;
-      document.getElementById("buttons").style.display = "block";
-    }
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name") || "You";
 
-    function yesClicked() {
-      document.body.innerHTML = `
-        <h1>💖 Yayyyy! 💖</h1>
-        <h2>You just made my day 😍</h2>
-      `;
+    document.getElementById("question").innerText =
+      `${name}, will you be my Valentine? 💘`;
+
+    function goYes() {
+      window.location.href = "yes.html?name=" + name;
     }
 
     function moveNo() {
@@ -95,6 +26,4 @@
       btn.style.left = Math.random() * 80 + "%";
     }
   </script>
-
 </body>
-</html>

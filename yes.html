@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YAY 💖</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
+      color: white;
+      text-align: center;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    h1 { margin-top: 100px; }
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: float 4s infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh); }
+      100% { transform: translateY(-10vh); }
+    }
+  </style>
+</head>
+<body>
+
+<h1 id="msg"></h1>
+<p>You just made my heart so happy 💕</p>
+
+<audio autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const name = new URLSearchParams(window.location.search).get("name");
+  document.getElementById("msg").innerText =
+    `YAYYYY ${name} 😍💖`;
+
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(heart);
+  }
+</script>
+
+<br><br>
+<button onclick="location.href='story.html?name='+name">
+  Our Story 📖
+</button>
+
+</body>
+</html>
