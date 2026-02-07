@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>YES 💖</title>
@@ -107,9 +107,7 @@
   </style>
 </head>
 
-
 <body>
-  
 
   <h1 id="msg"></h1>
   <p>
@@ -120,16 +118,6 @@
   <button onclick="goStory()">Our Story Begins 📖</button>
 
   <script>
-
-    const music = document.getElementById("yesMusic");
-
-
-if (sessionStorage.getItem("playMusic") === "yes") {
-  music.volume = 0.4;   // soft, romantic
-  music.play();
-  sessionStorage.removeItem("playMusic"); // play only once
-}
-
     const name =
       new URLSearchParams(window.location.search).get("name") || "You";
 
@@ -172,17 +160,7 @@ if (sessionStorage.getItem("playMusic") === "yes") {
     window.onload = () => {
       firework(window.innerWidth / 2, window.innerHeight / 2);
     };
-
-    window.addEventListener("click", function () {
-  const music = document.getElementById("bgMusic");
-  if (music && music.paused) {
-    music.volume = 0.6;
-    music.play();
-  }
-}, { once: true });
   </script>
-  <audio id="bgMusic" src="music.mp3"></audio>
-
 
 </body>
 </html>
