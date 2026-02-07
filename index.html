@@ -97,34 +97,7 @@
   </div>
 
   <script>
-    let audioCtx;
-
-    function startMusic() {
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-  const notes = [261.63, 293.66, 329.63, 392.00, 440.00];
-  let index = 0;
-
-  setInterval(() => {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-
-    osc.type = "sine";
-    osc.frequency.value = notes[index % notes.length];
-
-    gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.1);
-    gain.gain.exponentialRampToValueTime?.(0.001, audioCtx.currentTime + 1);
-
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    osc.start();
-    osc.stop(audioCtx.currentTime + 1);
-
-    index++;
-  }, 900);
-}
+    
 
     const params = new URLSearchParams(window.location.search);
     const name = params.get("name") || "Vikshith";
@@ -164,9 +137,7 @@
 
 setInterval(createHeart, 300);
 
-if (sessionStorage.getItem("playMusic") === "yes") {
-  startMusic();
-}
+
 
 
   </script>
