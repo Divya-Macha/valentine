@@ -1,89 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>YAY 💖</title>
+
   <style>
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(135deg, #ff4d6d, #ff9a9e);
+      background: radial-gradient(circle at top, #ff9a9e, #ff4d6d);
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       font-family: "Segoe UI", sans-serif;
-      color: white;
       overflow: hidden;
+    }
+
+    /* MAIN CARD */
+    .card {
+      background: rgba(255,255,255,0.95);
+      padding: 50px 40px;
+      border-radius: 30px;
       text-align: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+      animation: scaleIn 0.8s ease;
+      z-index: 2;
+      max-width: 420px;
+    }
+
+    @keyframes scaleIn {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     h1 {
-      font-size: 48px;
-      animation: bounce 1s infinite;
+      font-size: 42px;
+      color: #ff2f68;
+      margin-bottom: 10px;
+      animation: pulse 1.5s infinite;
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
     }
 
+    p {
+      font-size: 18px;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 14px 35px;
+      border-radius: 30px;
+      border: none;
+      background: linear-gradient(135deg, #ff4d6d, #ff758f);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(255,77,109,0.5);
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    /* CONFETTI BURST */
     .confetti {
       position: fixed;
       width: 10px;
       height: 10px;
-      background: white;
-      animation: fall 3s linear infinite;
+      top: 50%;
+      left: 50%;
+      animation: explode 1.8s ease-out forwards;
+      z-index: 1;
     }
 
-    @keyframes fall {
-      0% { transform: translateY(-10vh) rotate(0deg); }
-      100% { transform: translateY(110vh) rotate(360deg); }
+    @keyframes explode {
+      to {
+        transform: translate(var(--x), var(--y)) rotate(720deg);
+        opacity: 0;
+      }
     }
 
-    button {
-      margin-top: 30px;
-      padding: 12px 25px;
-      border-radius: 25px;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
+    /* FLOATING HEARTS */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 22px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.6);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<h1 id="msg"></h1>
-<p>You just made my heart explode 💕🥹</p>
-
-<audio autoplay loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<button onclick="goStory()">Our Story 📖</button>
+<div class="card">
+  <h1 id="msg"></h1>
+  <p>You didn’t just say yes…<br>you made my heart VERY happy 💕</p>
+  <button onclick="goStory()">Our Story 📖</button>
+</div>
 
 <script>
-  const name = new URLSearchParams(window.location.search).get("name") || "You";
-  document.getElementById("msg").innerText = `YAYYYY ${name} 😍💖`;
-  
+  const name =
+    new URLSearchParams(window.location.search).get("name") || "You";
 
+  document.getElementById("msg").innerText =
+    `YAYYYY ${name} 😍💖`;
 
   function goStory() {
     window.location.href = "story.html?name=" + name;
   }
 
-  for (let i = 0; i < 40; i++) {
+  /* CONFETTI BURST (ONE-TIME) */
+  for (let i = 0; i < 80; i++) {
     const confetti = document.createElement("div");
     confetti.className = "confetti";
-    confetti.style.left = Math.random() * 100 + "vw";
     confetti.style.background =
-      ["#fff", "#ffeb3b", "#ff4081"][Math.floor(Math.random() * 3)];
-    confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+      ["#ff4d6d", "#ffeb3b", "#ff9a9e", "#ffffff"]
+      [Math.floor(Math.random() * 4)];
+
+    confetti.style.setProperty(
+      "--x",
+      Math.random() * 600 - 300 + "px"
+    );
+    confetti.style.setProperty(
+      "--y",
+      Math.random() * 600 - 300 + "px"
+    );
+
     document.body.appendChild(confetti);
   }
 
-  
+  /* FLOATING HEARTS (CONTINUOUS) */
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration =
+      Math.random() * 3 + 4 + "s";
+    document.body.appendChild(heart);
 
+    setTimeout(() => heart.remove(), 6000);
+  }
+
+  setInterval(createHeart, 300);
 </script>
 
 </body>
