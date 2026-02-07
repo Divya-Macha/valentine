@@ -168,20 +168,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Yes 💖</title>
+  <title>Yes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       height: 100vh;
-      background: radial-gradient(circle at top, #2b0f1e, #120008);
+      background: linear-gradient(180deg, #0a0508, #1a0b14);
       font-family: "Georgia", serif;
-      color: white;
+      color: #fff;
       overflow: hidden;
       display: flex;
       justify-content: center;
@@ -189,103 +187,95 @@
       text-align: center;
     }
 
+    /* Cinema bars */
+    .bar {
+      position: fixed;
+      left: 0;
+      width: 100%;
+      height: 10vh;
+      background: black;
+      z-index: 10;
+    }
+    .bar.top { top: 0; }
+    .bar.bottom { bottom: 0; }
+
     /* Soft moving light */
     body::before {
       content: "";
       position: absolute;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.06), transparent 60%);
-      animation: lightMove 18s linear infinite;
+      background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 60%);
+      animation: lightMove 20s linear infinite;
     }
 
     @keyframes lightMove {
-      from { transform: translate(-30%, -30%); }
-      to { transform: translate(30%, 30%); }
+      from { transform: translate(-25%, -25%); }
+      to { transform: translate(25%, 25%); }
     }
 
     .scene {
       position: relative;
       z-index: 2;
-      max-width: 700px;
+      max-width: 720px;
       padding: 20px;
-      animation: fadeIn 2.5s ease forwards;
+    }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 54px);
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+      text-shadow: 0 0 25px rgba(255,120,160,0.4);
       opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    .text {
+      font-size: 18px;
+      line-height: 1.9;
+      min-height: 120px;
+      opacity: 0.9;
+    }
+
+    button {
+      margin-top: 50px;
+      padding: 14px 40px;
+      border-radius: 40px;
+      border: 1px solid rgba(255,255,255,0.5);
+      background: transparent;
+      color: white;
+      font-size: 15px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+      animation-delay: 8s;
+    }
+
+    button:hover {
+      background: rgba(255,255,255,0.15);
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(255,120,160,0.6);
     }
 
     @keyframes fadeIn {
       to { opacity: 1; }
     }
 
-    h1 {
-      font-size: clamp(32px, 6vw, 60px);
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-      text-shadow: 0 0 25px rgba(255, 120, 160, 0.5);
-    }
-
-    .line {
-      font-size: 18px;
-      line-height: 1.8;
-      opacity: 0;
-      animation: textReveal 2s ease forwards;
-    }
-
-    .line:nth-child(2) { animation-delay: 2s; }
-    .line:nth-child(3) { animation-delay: 4s; }
-
-    @keyframes textReveal {
-      to {
-        opacity: 1;
-        transform: translateY(-6px);
-      }
-    }
-
-    .divider {
-      width: 80px;
-      height: 2px;
-      background: linear-gradient(to right, transparent, #ff7aa2, transparent);
-      margin: 30px auto;
-      opacity: 0;
-      animation: fadeIn 2s ease forwards;
-      animation-delay: 1.5s;
-    }
-
-    button {
-      margin-top: 40px;
-      padding: 14px 36px;
-      border-radius: 40px;
-      border: 1px solid rgba(255,255,255,0.4);
-      background: transparent;
-      color: white;
-      font-size: 16px;
-      letter-spacing: 1px;
-      cursor: pointer;
-      backdrop-filter: blur(6px);
-      transition: all 0.3s ease;
-      opacity: 0;
-      animation: fadeIn 2s ease forwards;
-      animation-delay: 6s;
-    }
-
-    button:hover {
-      background: rgba(255,255,255,0.15);
-      transform: scale(1.08);
-      box-shadow: 0 0 30px rgba(255,120,160,0.6);
-    }
-
-    /* Floating cinematic particles */
-    .particle {
+    /* Floating cinematic dust */
+    .dust {
       position: fixed;
       width: 2px;
       height: 2px;
-      background: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.5);
       animation: drift linear infinite;
     }
 
     @keyframes drift {
       from {
-        transform: translateY(100vh);
+        transform: translateY(110vh);
         opacity: 0;
       }
       to {
@@ -298,25 +288,15 @@
 
 <body>
 
+  <div class="bar top"></div>
+  <div class="bar bottom"></div>
+
   <div class="scene">
     <h1 id="title"></h1>
 
-    <div class="divider"></div>
+    <div class="text" id="typeText"></div>
 
-    <div class="line">
-      In that one moment…  
-      everything slowed down.
-    </div>
-
-    <div class="line">
-      And suddenly, the world felt softer, warmer, brighter.
-    </div>
-
-    <div class="line">
-      Because you chose us.
-    </div>
-
-    <button onclick="goStory()">Continue the story →</button>
+    <button onclick="goStory()">Continue →</button>
   </div>
 
   <script>
@@ -326,18 +306,49 @@
     document.getElementById("title").innerText =
       `${name}, you said YES`;
 
+    const lines = [
+      "For a second, time slowed down.",
+      "The noise faded.",
+      "And everything felt certain.",
+      "",
+      "This wasn’t just an answer.",
+      "It was the beginning of us."
+    ];
+
+    let lineIndex = 0;
+    let charIndex = 0;
+    const speed = 45;
+    const textDiv = document.getElementById("typeText");
+
+    function typeWriter() {
+      if (lineIndex < lines.length) {
+        if (charIndex < lines[lineIndex].length) {
+          textDiv.innerHTML += lines[lineIndex].charAt(charIndex);
+          charIndex++;
+          setTimeout(typeWriter, speed);
+        } else {
+          textDiv.innerHTML += "<br/><br/>";
+          lineIndex++;
+          charIndex = 0;
+          setTimeout(typeWriter, 700);
+        }
+      }
+    }
+
+    setTimeout(typeWriter, 2000);
+
     function goStory() {
       window.location.href = "story.html?name=" + name;
     }
 
-    // Cinematic floating particles
-    for (let i = 0; i < 60; i++) {
-      const p = document.createElement("div");
-      p.className = "particle";
-      p.style.left = Math.random() * 100 + "vw";
-      p.style.animationDuration = (Math.random() * 12 + 8) + "s";
-      p.style.opacity = Math.random();
-      document.body.appendChild(p);
+    // Cinematic dust particles
+    for (let i = 0; i < 50; i++) {
+      const d = document.createElement("div");
+      d.className = "dust";
+      d.style.left = Math.random() * 100 + "vw";
+      d.style.animationDuration = (Math.random() * 14 + 10) + "s";
+      d.style.opacity = Math.random();
+      document.body.appendChild(d);
     }
   </script>
 
