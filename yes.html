@@ -79,6 +79,39 @@
     confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
     document.body.appendChild(confetti);
   }
+
+  // 🎵 Romantic background music using Web Audio API
+let audioCtx;
+
+function startMusic() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    const notes = [261.63, 293.66, 329.63, 392.00, 440.00]; // C D E G A
+    let index = 0;
+
+    setInterval(() => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = "sine";
+      osc.frequency.value = notes[index % notes.length];
+
+      gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.15, audioCtx.currentTime + 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start();
+      osc.stop(audioCtx.currentTime + 1);
+
+      index++;
+    }, 900);
+  }
+}
+
 </script>
 
 </body>
