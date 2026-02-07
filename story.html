@@ -1,4 +1,4 @@
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>Our Story 💫</title>
@@ -84,70 +84,4 @@
 </script>
 
 </body>
-</html>-->
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Our Story</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      margin: 0;
-      background: #0b0509;
-      font-family: Georgia, serif;
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    p {
-      max-width: 700px;
-      margin: 40px auto;
-      font-size: 18px;
-      line-height: 2;
-      opacity: 0.9;
-    }
-
-    button {
-      margin-top: 60px;
-      padding: 14px 40px;
-      border-radius: 40px;
-      border: 1px solid rgba(255,255,255,0.5);
-      background: transparent;
-      color: white;
-      cursor: pointer;
-    }
-  </style>
-</head>
-
-<body>
-
-<p>
-It didn’t start loudly.<br>
-No dramatic moment.<br><br>
-Just a conversation that felt different.<br>
-And somehow… stayed.
-</p>
-
-<p>
-Somewhere between laughter,<br>
-silence,<br>
-and small moments —
-this story began.
-</p>
-
-<button onclick="next()">What we’ll do next →</button>
-
-<script>
-  const name =
-    new URLSearchParams(window.location.search).get("name") || "You";
-
-  function next() {
-    window.location.href = "plans.html?name=" + name;
-  }
-</script>
-
-</body>
 </html>
-

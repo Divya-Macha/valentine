@@ -1,4 +1,4 @@
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>YES 💖</title>
@@ -163,97 +163,5 @@
   </script>
 
 </body>
-</html>-->
-
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Yes</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: radial-gradient(circle at top, #2b0f1e, #120008);
-      font-family: Georgia, serif;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .scene {
-      max-width: 700px;
-      padding: 20px;
-      animation: fadeIn 3s forwards;
-      opacity: 0;
-    }
-
-    h1 {
-      font-size: clamp(30px, 6vw, 58px);
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-    }
-
-    p {
-      font-size: 18px;
-      line-height: 1.9;
-      opacity: 0.9;
-    }
-
-    button {
-      margin-top: 40px;
-      padding: 14px 40px;
-      border-radius: 40px;
-      border: 1px solid rgba(255,255,255,0.5);
-      background: transparent;
-      color: white;
-      cursor: pointer;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-  </style>
-</head>
-
-<body>
-
-<div class="scene">
-  <h1 id="title"></h1>
-  <p>
-    In that moment,<br>
-    the world became quieter.<br><br>
-    And somehow… clearer.
-  </p>
-
-  <button onclick="next()">Continue →</button>
-</div>
-
-<audio id="bgMusic" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-  const name =
-    new URLSearchParams(window.location.search).get("name") || "You";
-
-  document.getElementById("title").innerText =
-    `${name}, you said YES`;
-
-  window.onload = () => {
-    const music = document.getElementById("bgMusic");
-    music.volume = 0.3;
-    music.play().catch(()=>{});
-  };
-
-  function next() {
-    window.location.href = "story.html?name=" + name;
-  }
-</script>
-
-</body>
 </html>
+
