@@ -1,0 +1,11 @@
+window.onload = () => {
+  const music = document.getElementById("yesMusic");
+
+  if (sessionStorage.getItem("playMusic") === "yes") {
+    music.volume = 0.4;
+    music.play();
+    sessionStorage.removeItem("playMusic");
+  }
+
+  firework(window.innerWidth / 2, window.innerHeight / 2);
+};

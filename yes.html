@@ -107,7 +107,11 @@
   </style>
 </head>
 
+
 <body>
+  <audio id="yesMusic">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
   <h1 id="msg"></h1>
   <p>
@@ -118,6 +122,16 @@
   <button onclick="goStory()">Our Story Begins 📖</button>
 
   <script>
+
+    const music = document.getElementById("yesMusic");
+
+
+if (sessionStorage.getItem("playMusic") === "yes") {
+  music.volume = 0.4;   // soft, romantic
+  music.play();
+  sessionStorage.removeItem("playMusic"); // play only once
+}
+
     const name =
       new URLSearchParams(window.location.search).get("name") || "You";
 
