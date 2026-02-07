@@ -109,9 +109,7 @@
 
 
 <body>
-  <audio id="yesMusic">
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+  
 
   <h1 id="msg"></h1>
   <p>
@@ -174,7 +172,17 @@ if (sessionStorage.getItem("playMusic") === "yes") {
     window.onload = () => {
       firework(window.innerWidth / 2, window.innerHeight / 2);
     };
+
+    window.addEventListener("click", function () {
+  const music = document.getElementById("bgMusic");
+  if (music && music.paused) {
+    music.volume = 0.6;
+    music.play();
+  }
+}, { once: true });
   </script>
+  <audio id="bgMusic" src="music.mp3"></audio>
+
 
 </body>
 </html>
