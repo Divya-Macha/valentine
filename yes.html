@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       height: 100vh;
@@ -25,15 +29,17 @@
       text-shadow: 0 0 20px rgba(255,255,255,0.6);
     }
 
+    p {
+      font-size: 18px;
+      max-width: 90%;
+      margin-top: 10px;
+      opacity: 0.95;
+    }
+
     @keyframes pulseGlow {
       0% { transform: scale(1); }
       50% { transform: scale(1.08); }
       100% { transform: scale(1); }
-    }
-
-    p {
-      font-size: 18px;
-      max-width: 90%;
     }
 
     button {
@@ -47,68 +53,129 @@
       color: #c9184a;
       font-weight: bold;
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
+    button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    }
+
+    /* Floating Hearts */
     .heart {
       position: fixed;
       bottom: -20px;
       font-size: 24px;
       animation: floatUp 6s linear infinite;
+      opacity: 0.8;
     }
 
     @keyframes floatUp {
-      0% { transform: translateY(0) scale(0.8); opacity: 0; }
-      20% { opacity: 1; }
-      100% { transform: translateY(-120vh) scale(1.4); opacity: 0; }
+      0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    /* Firework burst */
+    .burst {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      animation: explode 1.2s ease-out forwards;
+    }
+
+    @keyframes explode {
+      from {
+        transform: translate(0,0) scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: translate(var(--x), var(--y)) scale(0);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 
-<body>
 
-  <!-- MUSIC -->
+<body>
   <audio id="yesMusic">
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
   <h1 id="msg"></h1>
-  <p>My heart just did backflips 🥹💖</p>
+  <p>
+    My heart just did backflips, cartwheels, and forgot how to breathe 🥹💖  
+    This is officially our moment ✨
+  </p>
 
-  <button onclick="goStory()">Tap to continue 💕</button>
+  <button onclick="goStory()">Our Story Begins 📖</button>
 
   <script>
+
+    const music = document.getElementById("yesMusic");
+
+
+if (sessionStorage.getItem("playMusic") === "yes") {
+  music.volume = 0.4;   // soft, romantic
+  music.play();
+  sessionStorage.removeItem("playMusic"); // play only once
+}
+
     const name =
       new URLSearchParams(window.location.search).get("name") || "You";
 
     document.getElementById("msg").innerText =
       `${name}, YOU SAID YES 😍💘`;
 
-    const music = document.getElementById("yesMusic");
-
-    // 🔑 MUSIC FIX (plays on first click)
-    window.addEventListener("click", () => {
-      if (sessionStorage.getItem("playMusic") === "yes") {
-        music.volume = 0.4;
-        music.play().catch(() => {});
-        sessionStorage.removeItem("playMusic");
-      }
-    }, { once: true });
-
     function goStory() {
       window.location.href = "story.html?name=" + name;
     }
 
     // Floating hearts
-    const hearts = ["💖","💘","💕","💗","💓"];
+    const hearts = ["💖", "💘", "💕", "💗", "💓"];
     setInterval(() => {
-      const h = document.createElement("div");
-      h.className = "heart";
-      h.innerText = hearts[Math.floor(Math.random() * hearts.length)];
-      h.style.left = Math.random() * 100 + "vw";
-      document.body.appendChild(h);
-      setTimeout(() => h.remove(), 7000);
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 7000);
     }, 300);
+
+    // Firework explosion on load
+    function firework(x, y) {
+      for (let i = 0; i < 25; i++) {
+        const spark = document.createElement("div");
+        spark.className = "burst";
+        spark.style.left = x + "px";
+        spark.style.top = y + "px";
+        spark.style.setProperty("--x", `${Math.random() * 200 - 100}px`);
+        spark.style.setProperty("--y", `${Math.random() * 200 - 100}px`);
+        spark.style.background =
+          ["#fff", "#ffeb3b", "#ff80ab"][Math.floor(Math.random() * 3)];
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 1200);
+      }
+    }
+
+    window.onload = () => {
+      firework(window.innerWidth / 2, window.innerHeight / 2);
+    };
   </script>
 
 </body>
 </html>
+
