@@ -4,52 +4,82 @@
   <title>YAY 💖</title>
   <style>
     body {
-      background: linear-gradient(to right, #ff758c, #ff7eb3);
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff4d6d, #ff9a9e);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: "Segoe UI", sans-serif;
       color: white;
-      text-align: center;
-      font-family: sans-serif;
       overflow: hidden;
+      text-align: center;
     }
-    h1 { margin-top: 100px; }
-    .heart {
-      position: absolute;
-      font-size: 24px;
-      animation: float 4s infinite;
+
+    h1 {
+      font-size: 48px;
+      animation: bounce 1s infinite;
     }
-    @keyframes float {
-      0% { transform: translateY(100vh); }
-      100% { transform: translateY(-10vh); }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: white;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10vh) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 25px;
+      border-radius: 25px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
     }
   </style>
 </head>
+
 <body>
 
 <h1 id="msg"></h1>
-<p>You just made my heart so happy 💕</p>
+<p>You just made my heart explode 💕🥹</p>
 
 <audio autoplay loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<script>
-  const name = new URLSearchParams(window.location.search).get("name");
-  document.getElementById("msg").innerText =
-    `YAYYYY ${name} 😍💖`;
+<button onclick="goStory()">Our Story 📖</button>
 
-  for (let i = 0; i < 30; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerText = "💖";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-    document.body.appendChild(heart);
+<script>
+  const name = new URLSearchParams(window.location.search).get("name") || "You";
+  document.getElementById("msg").innerText = `YAYYYY ${name} 😍💖`;
+
+  function goStory() {
+    window.location.href = "story.html?name=" + name;
+  }
+
+  for (let i = 0; i < 40; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.background =
+      ["#fff", "#ffeb3b", "#ff4081"][Math.floor(Math.random() * 3)];
+    confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+    document.body.appendChild(confetti);
   }
 </script>
-
-<br><br>
-<button onclick="location.href='story.html?name='+name">
-  Our Story 📖
-</button>
 
 </body>
 </html>
